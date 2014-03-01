@@ -32,10 +32,7 @@ class Graph(dict):
 
 	# returns a list of nodes in a graph
 	def nodes(this):
-		l = []
-		for node in this:
-			l.append(node)
-		return l
+		return this.keys()
 
 	#returns all the edges in a graph
 	def edges(this):
@@ -50,10 +47,7 @@ class Graph(dict):
 	
 	# returns a list of nodes adjacent to a node
 	def out_nodes(this, node):
-		l = []
-		for n2 in this[node]:
-			l.append(n2)
-		return l
+		return this[node].keys()
 
 	# returns all edges attached to a node
 	def out_edges(this, node):
@@ -69,6 +63,16 @@ class Graph(dict):
 				if (n1 != n2):
 					e = Edge(n1, n2)
 					this.add_edge(e)
+
+	# Adds edges till graph is regular at number n
+	def add_regular_edges(this, num):
+		for n1 in this:
+			for n2 in this:
+				if (this.out_edges(n1).__len__() <= num
+					and this.out_edges(n2).__len__() <= num):
+					e = Edge(n1, n2)
+					this.add_edge(e)
+
 
 # Inherits from object class
 class Node(object):
@@ -100,12 +104,16 @@ def main(script, *args):
     v = Node('v')
     w = Node('w')
     x = Node('x')
+    y = Node('y')
+    z = Node('z')
+
     e = Edge(v, w)
     e1 = Edge(w, x)
-    g = Graph([v,w,x], [])
+
+    g = Graph([v,w,x,y], [e, e1])
     
-    g.add_all_edges()
-    print g
+    n = g.out_nodes(w)
+    print n
 
 if __name__ == '__main__':
     import sys

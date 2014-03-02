@@ -25,7 +25,7 @@ def test(n, p):
 	return g.is_connected()
 
 def main(script, *args):
-	for n in range(1, 100):
+	for n in range(997, 1000):
 		for t in range(1, 100):
 			p = float(t / 100.0)
 			if not test(n, p):

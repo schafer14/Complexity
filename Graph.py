@@ -73,6 +73,23 @@ class Graph(dict):
 					e = Edge(n1, n2)
 					this.add_edge(e)
 
+	# Returns true if graph is connected
+	def is_connected(this):
+		checked = []
+		queue = []
+		queue.append(this.nodes()[0])
+		while (len(queue) > 0):
+			for node in this.out_nodes(queue[0]):
+				try:
+					queue.index(node)
+				except:
+					try:
+						checked.index(node)
+					except:
+						queue.append(node)
+			checked.append(queue[0])
+			queue.pop(0)
+		return len(checked) == len(this.nodes())
 
 # Inherits from object class
 class Node(object):
@@ -109,11 +126,13 @@ def main(script, *args):
 
     e = Edge(v, w)
     e1 = Edge(w, x)
+    e2 = Edge(w, z)
+    e3 = Edge(z, y)
 
-    g = Graph([v,w,x,y], [e, e1])
+    g = Graph([v,w,x,y,z], [e,e1,e2,e3])
+
+    print g.is_connected()
     
-    n = g.out_nodes(w)
-    print n
 
 if __name__ == '__main__':
     import sys

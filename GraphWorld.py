@@ -194,7 +194,7 @@ def main(script, n='10', *args):
 
     # create a graph and a layout
     g = Graph(vs)
-    g.add_regular_edges(2)
+    g.add_all_edges()
     layout = CircleLayout(g)
 
     # draw the graph

@@ -2,6 +2,7 @@ from Graph import Node
 from Graph import Edge
 from Graph import Graph
 
+import FIFO
 import random
 
 class RandomGraph(Graph):
@@ -30,11 +31,19 @@ def test(n, p):
 	return g.is_connected()
 
 def main(script, *args):
+	nodes = []
 	for n in range(1, 100):
-		for t in range(1, 100):
-			p = float(t / 100.0)
-			if not test(n, p):
-				print '(' + `n` + ', ' + `p` + ')'
+		nodes.append(Node(n))
+
+	g = RandomGraph(nodes, [])
+	g.add_random_edges(.01)
+
+
+	start = g.nodes()[random.randrange(0, len(nodes) - 1)]
+	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
+
+	print 'from ' + `start` + ' to ' + `dest`
+	g.bfs(start, dest)
 
 if __name__ == '__main__':
     import sys

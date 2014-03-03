@@ -106,6 +106,27 @@ class Graph(dict):
 			queue.pop(0)
 		return len(checked) == len(this.nodes())
 
+	def bfs(this, start, dest):
+		visited = []
+		queue  = []
+		queue.append(start)
+		path = [] 
+		while len(queue):
+			n = queue.pop()
+			if (n == dest):
+				path.append(n)
+				while (hasattr(n, 'parent')):
+					path.insert(0, n.parent)
+					n = n.parent
+				print path
+				return
+			for n2 in this.out_nodes(n):
+				if (n2 not in visited and n2 not in queue):
+					n2.parent = n
+					queue.append(n2)
+			visited.append(n)
+			
+
 # Inherits from object class
 class Node(object):
 	def __init__(self, label=''):

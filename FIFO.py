@@ -13,3 +13,8 @@ class FIFO(object):
 		this.nextOut += 1
 		return value
 
+	def next(this):
+		if (this.nextOut == this.nextIn):
+			return False
+		else:
+			return True

@@ -20,12 +20,17 @@ def test(n, p):
 		nodes.append(n)
 
 	g = RandomGraph(nodes, [])
+	g1 = RandomGraph(nodes, [])
+	g1.add_all_edges()
 	g.add_random_edges(p)
+	
+	# print 'number of random edges ' + `len(g.edges())`
+	# print 'number of possible edges ' + `len(g1.edges())`
 
 	return g.is_connected()
 
 def main(script, *args):
-	for n in range(997, 1000):
+	for n in range(1, 100):
 		for t in range(1, 100):
 			p = float(t / 100.0)
 			if not test(n, p):

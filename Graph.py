@@ -44,6 +44,11 @@ class Graph(dict):
 				except:
 					l.append(this[n1][n2])
 		return l
+
+	# list comprehension of edges
+	def edges_comp(this):
+		return [Edge(n1, n2) for n1 in this for n2 in this if n2 in this[n1]]
+	
 	
 	# returns a list of nodes adjacent to a node
 	def out_nodes(this, node):
@@ -56,6 +61,10 @@ class Graph(dict):
 			l.append(this[node][n2])
 		return l
 
+	# returns all edges attached to a node using list comprehension
+	def out_edges_comp(this, node):
+		return [Edge(node, n2) for n2 in this[node]]
+
 	# makes a complete graph by adding edges to an edgless graph
 	def add_all_edges(this):
 		for n1 in this:
@@ -63,6 +72,12 @@ class Graph(dict):
 				if (n1 != n2):
 					e = Edge(n1, n2)
 					this.add_edge(e)
+
+	# makes a complete graph using list comprehensions
+	def add_all_edges_comp(this):
+		edges = [Edge(n1, n2) for n1 in this for n2 in this if n1 is not n2]
+		for e in edges:
+			this.add_edge(e)
 
 	# Adds edges till graph is regular at number n
 	def add_regular_edges(this, num):
@@ -129,9 +144,9 @@ def main(script, *args):
     e2 = Edge(w, z)
     e3 = Edge(z, y)
 
-    g = Graph([v,w,x,y,z], [e,e1,e2,e3])
+    g = Graph([v,w,x,y,z], [e, e1, e2, e3])
 
-    print g.is_connected()
+    print len(g.edges_comp())
     
 
 if __name__ == '__main__':

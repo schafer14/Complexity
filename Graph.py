@@ -114,12 +114,10 @@ class Graph(dict):
 		while len(queue):
 			n = queue.pop()
 			if (n == dest):
-				path.append(n)
 				while (hasattr(n, 'parent')):
-					path.insert(0, n.parent)
+					path.insert(0, Edge(n.parent, n))
 					n = n.parent
-				print path
-				return
+				return path
 			for n2 in this.out_nodes(n):
 				if (n2 not in visited and n2 not in queue):
 					n2.parent = n

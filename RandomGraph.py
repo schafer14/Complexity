@@ -32,7 +32,7 @@ def test(n, p):
 
 def main(script, *args):
 	nodes = []
-	for n in range(1, 100):
+	for n in range(1, 1000):
 		nodes.append(Node(n))
 
 	g = RandomGraph(nodes, [])
@@ -43,7 +43,7 @@ def main(script, *args):
 	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
 
 	print 'from ' + `start` + ' to ' + `dest`
-	g.bfs(start, dest)
+	print g.bfs(start, dest)
 
 if __name__ == '__main__':
     import sys

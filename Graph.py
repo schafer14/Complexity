@@ -81,12 +81,19 @@ class Graph(dict):
 
 	# Adds edges till graph is regular at number n
 	def add_regular_edges(this, num):
-		for n1 in this:
-			for n2 in this:
-				if (this.out_edges(n1).__len__() <= num
-					and this.out_edges(n2).__len__() <= num):
-					e = Edge(n1, n2)
-					this.add_edge(e)
+		it = 0
+		while (num >= it):
+			for n1 in this:
+				if (len(this.out_edges_comp(n1)) <= it):
+					e = Edge(n1, this.find_nodes(it)[0])
+					print e
+					this.add_edge(Edge(n1, this.find_nodes(it)[0]))
+			print 'Done'
+			it = it + 1
+
+	#returns all nodes with fewer then n edges
+	def find_nodes(this, num):
+		return [n for n in this if len(this.out_edges_comp(n)) <= num]
 
 	# Returns true if graph is connected
 	def is_connected(this):
@@ -163,10 +170,10 @@ def main(script, *args):
     e2 = Edge(w, z)
     e3 = Edge(z, y)
 
-    g = Graph([v,w,x,y,z], [e, e1, e2, e3])
+    g = Graph([v,w,x,y,z], [])
 
-    print len(g.edges_comp())
-    
+    g.add_regular_edges(3)
+    print g
 
 if __name__ == '__main__':
     import sys

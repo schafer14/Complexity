@@ -130,6 +130,26 @@ class Graph(dict):
 					n2.parent = n
 					queue.append(n2)
 			visited.append(n)
+
+	def bfsOpt(this, start, dest):
+		visited = []
+		queue  = []
+		solution = dest
+		start.distFromStart = 0
+		queue.append(start)
+		path = [] 
+		while len(queue):
+			n = queue.pop()
+			if (n == dest and n.distFromStart < solution.distFromStart):
+				solution = n
+			else:
+				for n2 in this.out_nodes(n):
+					if (n2 not in visited and n2 not in queue):
+						n2.parent = n
+						n2.distFromStart = n.distFromStart + 1
+						queue.append(n2)
+				visited.append(n)
+		return solution
 			
 
 # Inherits from object class

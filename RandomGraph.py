@@ -43,7 +43,7 @@ def main(script, *args):
 	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
 
 	print 'from ' + `start` + ' to ' + `dest`
-	print g.bfs(start, dest)
+	print g.bfsOpt(start, dest).distFromStart
 
 if __name__ == '__main__':
     import sys

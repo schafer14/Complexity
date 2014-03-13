@@ -36,15 +36,17 @@ def main(script, *args):
 		nodes.append(Node(n))
 
 	g = RandomGraph(nodes, [])
-	g.add_random_edges(.01)
+	g.add_random_edges(.1)
 
 
 	start = g.nodes()[random.randrange(0, len(nodes) - 1)]
 	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
 
 	print 'from ' + `start` + ' to ' + `dest`
-	print g.bfsOpt(start, dest).distFromStart
-
+	optDest = g.bfsOpt(start, dest)
+	print optDest.distFromStart
+	print g.path(optDest)	
+	
 if __name__ == '__main__':
     import sys
     main(*sys.argv)

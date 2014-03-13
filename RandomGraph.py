@@ -13,7 +13,7 @@ class RandomGraph(Graph):
 					e = Edge(n1, n2)
 					this.add_edge(e)
 
-def test(n, p):
+def test_is_connected(n, p):
 	nodes = []
 
 	for x in range(0, n):
@@ -30,24 +30,25 @@ def test(n, p):
 
 	return g.is_connected()
 
-def main(script, *args):
+def test_path(n, p):
 	nodes = []
-	for n in range(1, 1000):
-		nodes.append(Node(n))
+	for x in range(1, n):
+		nodes.append(Node(x))
 
 	g = RandomGraph(nodes, [])
-	g.add_random_edges(.005)
+	g.add_random_edges(p)
 
 
 	start = g.nodes()[random.randrange(0, len(nodes) - 1)]
 	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
 
-	print 'from ' + `start` + ' to ' + `dest`
 	optDest = g.bfsOpt(start, dest)
-	path = g.path(optDest)
-	print len(path)
-	print path	
+	return g.path(optDest)
 	
+
+def main(script, *args):
+	print test_path(1000, .005)
+
 if __name__ == '__main__':
     import sys
     main(*sys.argv)

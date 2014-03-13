@@ -130,7 +130,8 @@ class Graph(dict):
 	def bfsOpt(this, start, dest):
 		visited = []
 		queue  = []
-		dest.distFromStart = len(this)
+		size = len(this)
+		dest.distFromStart = size
 		dest.parent = 0
 		solution = dest
 		start.distFromStart = 0
@@ -148,6 +149,9 @@ class Graph(dict):
 						n2.distFromStart = n.distFromStart + 1
 						queue.append(n2)
 				visited.append(n)
+		if (solution.distFromStart == size):
+			print 'not connected'
+			return
 		return solution
 
 	def path(this, node):

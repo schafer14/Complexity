@@ -36,7 +36,7 @@ def main(script, *args):
 		nodes.append(Node(n))
 
 	g = RandomGraph(nodes, [])
-	g.add_random_edges(.1)
+	g.add_random_edges(.005)
 
 
 	start = g.nodes()[random.randrange(0, len(nodes) - 1)]
@@ -44,8 +44,9 @@ def main(script, *args):
 
 	print 'from ' + `start` + ' to ' + `dest`
 	optDest = g.bfsOpt(start, dest)
-	print optDest.distFromStart
-	print g.path(optDest)	
+	path = g.path(optDest)
+	print len(path)
+	print path	
 	
 if __name__ == '__main__':
     import sys

@@ -34,20 +34,9 @@ class Graph(dict):
 	def nodes(this):
 		return this.keys()
 
-	#returns all the edges in a graph
-	def edges(this):
-		l = []
-		for n1 in this:
-			for n2 in this[n1]:
-				try:
-					l.index(this[n1][n2])
-				except:
-					l.append(this[n1][n2])
-		return l
-
 	# list comprehension of edges
-	def edges_comp(this):
-		return [Edge(n1, n2) for n1 in this for n2 in this if n2 in this[n1]]
+	def edges(this):
+		return [Edge(n1, n2) for n1 in this for n2 in this[n1] if n2 in this[n1] and n1 < n2]
 	
 	
 	# returns a list of nodes adjacent to a node
@@ -171,7 +160,6 @@ class Node(object):
 	def __repr__(self):
 		return 'Node (%s)' % repr(self.label)
 
-	# returns a human readable version of repr (Helpful with more attrs)
 	__str__ = __repr__
 
 
@@ -194,16 +182,13 @@ def main(script, *args):
     x = Node('x')
     y = Node('y')
     z = Node('z')
+    a = Node('a')
 
-    e = Edge(v, w)
-    e1 = Edge(w, x)
-    e2 = Edge(w, z)
-    e3 = Edge(z, y)
+    
+    g = Graph([v,w,x,y,z,a], [])
 
-    g = Graph([v,w,x,y,z], [])
-
-    g.add_regular_edges(3)
-    print g
+    g.add_all_edges()
+    print len(g.edges())
 
 if __name__ == '__main__':
     import sys

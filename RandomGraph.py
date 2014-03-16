@@ -4,6 +4,7 @@ from Graph import Graph
 
 import FIFO
 import random
+import math
 
 class RandomGraph(Graph):
 	def add_random_edges(this, p):
@@ -12,6 +13,25 @@ class RandomGraph(Graph):
 				if (random.random() < p and n1 > n2):
 					e = Edge(n1, n2)
 					this.add_edge(e)
+
+	def add_random_edges_fixed(this, p):
+		total = len(this)
+		edges = total * (total-1) / 2 * p
+		edge = 0
+		nodes = this.nodes()
+		print edges
+		while (edge < edges):
+			r1 = nodes[int(math.floor(random.random() * total))]
+			r2 = nodes[int(math.floor(random.random() * total))]
+			if (r1 != r2):
+				try:
+					this[r1][r2]
+				except:
+					this.add_edge(Edge(r1, r2))
+					edge = edge + 1
+		return None
+
+
 
 def test_is_connected(n, p):
 	nodes = []
@@ -34,20 +54,31 @@ def test_path(n, p):
 	nodes = []
 	for x in range(1, n):
 		nodes.append(Node(x))
+	print 'nodes made'
 
 	g = RandomGraph(nodes, [])
+	print 'nodes added'
 	g.add_random_edges(p)
-
+	print 'edges added'
 
 	start = g.nodes()[random.randrange(0, len(nodes) - 1)]
 	dest = g.nodes()[random.randrange(0, len(nodes) - 1)]
 
 	optDest = g.bfsOpt(start, dest)
 	return g.path(optDest)
-	
+
+def build(n):
+	nodes = []
+	for x in range(1, n):
+		nodes.append(Node(x))
+	g = RandomGraph(nodes, [])
+	return g
 
 def main(script, *args):
-	print test_path(1000, .005)
+	g = build(1000)
+	g.add_random_edges_fixed(.1)
+	
+	
 
 if __name__ == '__main__':
     import sys

@@ -19,7 +19,7 @@ class RandomGraph(Graph):
 		edges = total * (total-1) / 2 * p
 		edge = 0
 		nodes = this.nodes()
-		print edges
+		print edges / len(nodes) * 2
 		while (edge < edges):
 			r1 = nodes[int(math.floor(random.random() * total))]
 			r2 = nodes[int(math.floor(random.random() * total))]
@@ -75,8 +75,8 @@ def build(n):
 	return g
 
 def main(script, *args):
-	g = build(1000)
-	g.add_random_edges_fixed(.1)
+	g = build(100000)
+	g.add_random_edges_fixed(.001)
 	
 	
 

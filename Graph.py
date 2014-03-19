@@ -69,16 +69,18 @@ class Graph(dict):
 			this.add_edge(e)
 
 	# Adds edges till graph is regular at number n
-	def add_regular_edges(this, num):
-		it = 0
-		while (num >= it):
-			for n1 in this:
-				if (len(this.out_edges_comp(n1)) <= it):
-					e = Edge(n1, this.find_nodes(it)[0])
-					print e
-					this.add_edge(Edge(n1, this.find_nodes(it)[0]))
-			print 'Done'
-			it = it + 1
+	def add_regular_edges(this, k):
+		n = len(this.nodes())
+		if (n*k % 2 != 0):
+			raise Exception ('n or k must be even')
+		if (k > n - 1):
+			raise Exception ('k must be less then n-1')
+		print n
+		for n1 in range(0, n):
+			for n2 in range(n1, n1 + k/2):
+				if (n1 != n2):
+					this.add_edge(Edge(this.nodes()[n1], this.nodes()[n2%k]))
+		
 
 	#returns all nodes with fewer then n edges
 	def find_nodes(this, num):
@@ -187,8 +189,8 @@ def main(script, *args):
     
     g = Graph([v,w,x,y,z,a], [])
 
-    g.add_all_edges()
-    print len(g.edges())
+    g.add_regular_edges(5)
+    print g
 
 if __name__ == '__main__':
     import sys

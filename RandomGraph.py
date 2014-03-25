@@ -3,6 +3,7 @@ from Graph import Edge
 from Graph import Graph
 
 import FIFO
+import DLList
 import random
 import math
 
@@ -67,6 +68,14 @@ def test_path(n, p):
 	optDest = g.bfsOpt(start, dest)
 	return g.path(optDest)
 
+def test_dll():
+	n = 10
+	dllist = DLList.DLList()
+	iter = {Node(x) for x in range(1, n)}
+	for x in iter:
+		dllist.append(x)
+
+
 def build(n):
 	nodes = []
 	for x in range(1, n):
@@ -75,8 +84,7 @@ def build(n):
 	return g
 
 def main(script, *args):
-	g = build(100000)
-	g.add_random_edges_fixed(.001)
+	test_dll()
 	
 	
 

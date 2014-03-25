@@ -69,18 +69,39 @@ class Graph(dict):
 			this.add_edge(e)
 
 	# Adds edges till graph is regular at number n
-	def add_regular_edges(this, k):
-		n = len(this.nodes())
-		if (n*k % 2 != 0):
-			raise Exception ('n or k must be even')
-		if (k > n - 1):
-			raise Exception ('k must be less then n-1')
-		print n
-		for n1 in range(0, n):
-			for n2 in range(n1, n1 + k/2):
-				if (n1 != n2):
-					this.add_edge(Edge(this.nodes()[n1], this.nodes()[n2%k]))
-		
+	def add_regular_edges(self, k=2):
+		vs = self.nodes()
+		if k >= len(vs):
+			raise ValueError, ("cannot build a regular graph with " +
+				"degree >= number of vertices.")
+
+		if k % 2 == 1:
+			if (len(vs) % 2 == 1):
+				raise ValueError, ("cannot build a regular graph with " +
+									"an odd degree and an odd number of " +
+									"vertices.")
+			self.add_regular_edges_even(k-1)
+			self.add_regular_edges_odd()
+		else:
+			self.add_regular_edges_even(k)
+
+	def add_regular_edges_even(self, k=2):
+		vs = self.nodes()
+		double = vs * 2
+
+		for i, v in enumerate(vs):
+			for j in range(1,k/2+1):
+				w = double[i+j]
+				self.add_edge(Edge(v, w))
+
+	def add_regular_edges_odd(self):
+		vs = self.nodes()
+		n = len(vs)
+		reduplicated_list = vs * 2
+		for i in range(n/2):
+			v = reduplicated_list[i]
+			w = reduplicated_list[i+n/2]
+			self.add_edge(Edge(v, w))
 
 	#returns all nodes with fewer then n edges
 	def find_nodes(this, num):

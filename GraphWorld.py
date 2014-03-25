@@ -22,6 +22,7 @@ from Graph import Node
 from Graph import Edge
 from Graph import Graph
 from RandomGraph import RandomGraph
+from SmallWorldGraph import SmallWorldGraph
 
 
 class GraphCanvas(GuiCanvas):
@@ -186,7 +187,7 @@ class RandomLayout(Layout):
 
 
 
-def main(script, n='6', *args):
+def main(script, n='25', *args):
 
     # create n Vertices
     n = int(n)
@@ -194,10 +195,11 @@ def main(script, n='6', *args):
     vs = [Node(c) for c in labels[:n]]
 
     # create a graph and a layout
-    g = RandomGraph(vs)
+    g = SmallWorldGraph(vs)
     # g.add_random_edges(.2)
     # g.add_all_edges()
-    g.add_regular_edges(3)
+    g.add_regular_edges(4)
+    g.rewire(.20)
     layout = CircleLayout(g)
 
     # draw the graph

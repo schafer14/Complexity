@@ -84,6 +84,7 @@ class Graph(dict):
 			self.add_regular_edges_odd()
 		else:
 			self.add_regular_edges_even(k)
+		return len(self.edges())
 
 	def add_regular_edges_even(self, k=2):
 		vs = self.nodes()

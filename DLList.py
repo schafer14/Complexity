@@ -20,12 +20,15 @@ class DLList(object):
 				node
 		else:
 			self.first = node
+			self.last = node
 			node.next = None
 		self.nl.append(node)
 
 	def pop(self):
+		ret = self.first
 		try:
-			self.nl[0].pn = None
+			self.first = ret.next
+			self.nl.pop(0)
 		except:
-			raise
-		return self.nl.pop(0)
+			self.nl.pop(0)
+		return ret
